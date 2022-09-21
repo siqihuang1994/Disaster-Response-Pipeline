@@ -97,7 +97,7 @@ def build_model():
 
 
 def evaluate_model(model, X_test, Y_test, category_names):
-    result = model.fit(X_train, Y_train)
+    result = model.fit(X_test, Y_test)
     best_model = result.best_estimator_
     Y_pred = best_model.predict(X_test)
     
