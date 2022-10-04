@@ -55,6 +55,15 @@ def clean_data(df):
     # set binary: remove any records with values other than 0 or 1
     categories[((categories==1)|(categories==0)).all(1)]
     
+    '''    
+    # alternative convertion: convert values other greater than 1 to 1
+    for column in categories:
+        categories[column] = categories[column].astype(str).str[-1:]
+        categories[column] = pd.to_numeric(categories[column])
+        categories[column] = categories[column].apply(lambda x: (x>0)*1 )
+        categories[column] = pd.to_numeric(categories[column])
+    '''
+    
     # concatenate the original dataframe with the new `categories` dataframe
     df=df.drop('categories',axis=1)
     df = pd.concat([df, categories], axis=1)
