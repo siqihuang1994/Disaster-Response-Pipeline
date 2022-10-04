@@ -26,7 +26,7 @@ def clean_data(df):
     """
     clean_data
     Create a dataframe replacing original categories column with the 36 individual category columns and rename the columns 
-    Drop non-binary records and duplicates
+    Convert values to binary and drop duplicates
     
     Input: 
     df      merged dataframe contains info from categories and messages
@@ -50,8 +50,10 @@ def clean_data(df):
     # set each value to be the last character of the string
         categories[column] = categories[column].astype(str).str[-1:]
     
-    # convert column from string to numeric
-        categories[column] = pd.to_numeric(categories[column])
+    # convert column from string to numeric and binary
+    categories[column] = pd.to_numeric(categories[column])
+    categories[column] = categories[column].apply(lambda x: (x>0)*1 )
+    categories[column] = pd.to_numeric(categories[column])
     
     # concatenate the original dataframe with the new `categories` dataframe
     df=df.drop('categories',axis=1)
