@@ -1,6 +1,8 @@
 # Disaster-Response-Pipeline
 Project from Udacity: Disaster Response Pipeline
 
+### Summary:
+In this project, I have analyzed disaster data to build a model that classifies disaster messages. The dataset I used contains real messages that were sent during disaster events. I have created a machine learning pipeline to categorize these events so that I can send the messages to an appropriate disaster relief agency. This project also includes a web app where an emergency worker can input a new message and get classification results in several categories. The web app also displays visualizations of the data.
 
 ### Instructions:
 1. Run the following commands in the project's root directory to set up your database and model.
