@@ -19,7 +19,7 @@ In this project, I have analyzed disaster data to build a model that classifies 
 
 ### File structure of the project:
 app
-| - template
+# | - template
 | |- master.html # main page of web app
 | |- go.html # classification result page of web app
 |- run.py # Flask file that runs app
