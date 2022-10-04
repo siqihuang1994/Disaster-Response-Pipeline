@@ -26,7 +26,7 @@ def clean_data(df):
     """
     clean_data
     Create a dataframe replacing original categories column with the 36 individual category columns and rename the columns 
-    Drop duplicates
+    Drop non-binary records and duplicates
     
     Input: 
     df      merged dataframe contains info from categories and messages
@@ -56,6 +56,9 @@ def clean_data(df):
     # concatenate the original dataframe with the new `categories` dataframe
     df=df.drop('categories',axis=1)
     df = pd.concat([df, categories], axis=1)
+    
+    # drop non-binary records
+    df.drop(df[df['age'] < 30.0].index, inplace=True)
     
     # drop duplicates
     df=df.drop_duplicates()
