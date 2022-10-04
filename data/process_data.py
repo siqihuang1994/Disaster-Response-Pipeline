@@ -50,8 +50,9 @@ def clean_data(df):
     # set each value to be the last character of the string
         categories[column] = categories[column].astype(str).str[-1:]
     
-    # convert column from string to numeric and binary
+    # convert column from string to numeric
     categories[column] = pd.to_numeric(categories[column])
+    # Binary: convert any values >1 to 1
     categories[column] = categories[column].apply(lambda x: (x>0)*1 )
     categories[column] = pd.to_numeric(categories[column])
     
