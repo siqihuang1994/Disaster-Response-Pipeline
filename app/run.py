@@ -83,6 +83,24 @@ def index():
                     'title': "Genre"
                 }
             }
+        },
+        {
+            'data': [
+                Scatter(
+                    x=genre_counts,
+                    y=genre_names
+                )
+            ],
+
+            'layout': {
+                'title': 'A different distribution of Message Genres',
+                'yaxis': {
+                    'title': "Type of messages"
+                },
+                'xaxis': {
+                    'title': "Number of messages"
+                }
+            }
         }
     ]
     
