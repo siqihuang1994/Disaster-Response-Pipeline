@@ -44,6 +44,19 @@ class StartingVerbExtractor(BaseEstimator, TransformerMixin):
     
     
 def load_data(database_filepath):
+    """
+    load_data
+    Load data from database
+    
+    Input:
+    database_filepath       filepath to the database where dataframe is stored
+    
+    Returns:
+    X               dataframe contains explantory variables
+    Y               dataframe contains the response variable
+    category_names  list of category names
+    """
+    
     engine = create_engine("sqlite:///" + database_filepath)
     df = pd.read_sql_table('messages', engine)
     X = df['message'].values
@@ -53,6 +66,17 @@ def load_data(database_filepath):
     return X, Y, category_names
 
 def tokenize(text):
+    """
+    tokenize
+    tokenize, lemmatize and clean a text
+    
+    Input:
+    text      text need to be tokenized, lemmatized and cleaned
+    
+    Returns:
+    clean_tokens    A list of tokenized, lemmatized and cleaned text
+    """
+        
     url_regex = 'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
     detected_urls = re.findall(url_regex, text)
     for url in detected_urls:
@@ -70,6 +94,15 @@ def tokenize(text):
 
 
 def build_model():
+    """
+    build_model
+    Process cleaned text and model pipeline
+    Define parameters for GridSearchCV
+    
+    Returns:
+    cv      gridsearch object as final model pipeline
+    """
+    
     pipeline = Pipeline([
         ('features', FeatureUnion([
 
@@ -97,6 +130,19 @@ def build_model():
 
 
 def evaluate_model(model, X_test, Y_test, category_names):
+    """
+    evaluate_model
+    Evaluate the models with different parameters and determine the best one 
+    
+    Input:
+    model               the final model built
+    X_test              dataframe contains test data for explantory variables
+    Y_test              dataframe contains test data for the response variable
+    category_names      list of category names 
+    
+    Returns:
+    best_model      the final model that fits the data best
+    """
     result = model.fit(X_test, Y_test)
     best_model = result.best_estimator_
     Y_pred = best_model.predict(X_test)
@@ -114,6 +160,15 @@ def evaluate_model(model, X_test, Y_test, category_names):
     return best_model
 
 def save_model(model, model_filepath):
+    """
+    save_model
+    Save the final model to the desired location
+    
+    Input:
+    model               the final model built
+    model_filepath      filepath to save the model
+    """
+    
     pickle.dump(model, open(model_filepath, 'wb'))
     
     
